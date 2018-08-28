@@ -7,7 +7,9 @@ package com.example.android.quakereport;
         import org.json.JSONException;
         import org.json.JSONObject;
 
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
+        import java.util.Date;
 
 /**
  * Helper methods related to requesting and receiving earthquake data from USGS.
@@ -58,8 +60,10 @@ public final class QueryUtils {
                 JSONObject propertiesObject = featureObject.getJSONObject("properties");
                 String mag = propertiesObject.getString("mag");
                 String place = propertiesObject.getString("place");
-                String time = propertiesObject.getString("time");
-                earthquakes.add(new CustomQuakeInfo(Float.valueOf(mag), place, time));
+                Long dateTimeMilli = Long.valueOf(propertiesObject.getString("time"));
+                String date = millisecondToDateformat(dateTimeMilli);
+                String time = millisecondToTimeformat(dateTimeMilli);
+                earthquakes.add(new CustomQuakeInfo(Float.valueOf(mag), place, date, time));
             }
 
         } catch (JSONException e) {
@@ -71,6 +75,23 @@ public final class QueryUtils {
 
         // Return the list of earthquakes
         return earthquakes;
+    }
+
+    public static String millisecondToDateformat(long milli)
+    {
+        Date date = new Date(milli);
+        SimpleDateFormat readableFormat = new SimpleDateFormat("MMM dd, yyyy");
+        String dateString = readableFormat.format(date);
+        return dateString;
+    }
+
+    public static String millisecondToTimeformat(long milli) {
+
+        Date time = new Date(milli);
+        SimpleDateFormat readableFormat = new SimpleDateFormat("HH:mm a");
+        String timeString = readableFormat.format(time);
+        return timeString;
+
     }
 
 }

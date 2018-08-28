@@ -28,12 +28,40 @@ public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
 
         CustomQuakeInfo singleQuakeInfo = getItem(position);
         TextView magView = (TextView)customView.findViewById(R.id.magnitude);
-        TextView locView = (TextView)customView.findViewById(R.id.location);
+        TextView offLocView = (TextView)customView.findViewById(R.id.locationOffset);
+        TextView locView = (TextView)customView.findViewById(R.id.primaryLocation);
         TextView dateView = (TextView)customView.findViewById(R.id.date);
+        TextView timeView = (TextView)customView.findViewById(R.id.time);
 
         magView.setText(Float.toString(singleQuakeInfo.getMagnitude()));
-        locView.setText(singleQuakeInfo.getLocation());
+
+        //in this section the String will be split at "of "
+        String primaryLocation, locationOffset;
+        String location = singleQuakeInfo.getLocation();
+        if(location.contains("of "))
+        {
+            String[] strArr = location.split("of ");
+            locationOffset = strArr[0] +" of ";
+            primaryLocation = strArr[1];
+
+
+        }
+        else
+        {
+            locationOffset = "Near the";
+            primaryLocation = location;
+
+        }
+
+
+
+        offLocView.setText(locationOffset);
+        locView.setText(primaryLocation);
+
+
+
         dateView.setText(singleQuakeInfo.getDate());
+        timeView.setText(singleQuakeInfo.getTime());
 
         return customView;
 
