@@ -2,10 +2,10 @@ package com.example.android.quakereport;
 
 public class CustomQuakeInfo {
 
-    float magnitude;
+    double magnitude;
     String location, date, time;
 
-    public CustomQuakeInfo(float magnitude, String location, String date, String time)
+    public CustomQuakeInfo(double magnitude, String location, String date, String time)
     {
         this.magnitude = magnitude;
         this.location = location;
@@ -13,7 +13,7 @@ public class CustomQuakeInfo {
         this.time = time;
     }
 
-    public float getMagnitude()
+    public double getMagnitude()
     {
         return magnitude;
     }

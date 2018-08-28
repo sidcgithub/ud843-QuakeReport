@@ -7,6 +7,7 @@ package com.example.android.quakereport;
         import org.json.JSONException;
         import org.json.JSONObject;
 
+        import java.text.DecimalFormat;
         import java.text.SimpleDateFormat;
         import java.util.ArrayList;
         import java.util.Date;
@@ -63,7 +64,9 @@ public final class QueryUtils {
                 Long dateTimeMilli = Long.valueOf(propertiesObject.getString("time"));
                 String date = millisecondToDateformat(dateTimeMilli);
                 String time = millisecondToTimeformat(dateTimeMilli);
-                earthquakes.add(new CustomQuakeInfo(Float.valueOf(mag), place, date, time));
+                Double decimalMagnitude = Double.valueOf(mag);
+
+                earthquakes.add(new CustomQuakeInfo(decimalMagnitude, place, date, time));
             }
 
         } catch (JSONException e) {
@@ -91,6 +94,14 @@ public final class QueryUtils {
         SimpleDateFormat readableFormat = new SimpleDateFormat("HH:mm a");
         String timeString = readableFormat.format(time);
         return timeString;
+
+    }
+
+    public static String doubleFormatter(double x)
+    {
+        DecimalFormat df = new DecimalFormat("0.0");
+        String formattedNumber = df.format(x);
+        return formattedNumber;
 
     }
 

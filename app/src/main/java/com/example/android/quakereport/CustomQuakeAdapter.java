@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
@@ -33,7 +34,7 @@ public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
         TextView dateView = (TextView)customView.findViewById(R.id.date);
         TextView timeView = (TextView)customView.findViewById(R.id.time);
 
-        magView.setText(Float.toString(singleQuakeInfo.getMagnitude()));
+        magView.setText(doubleFormatter(singleQuakeInfo.getMagnitude()));
 
         //in this section the String will be split at "of "
         String primaryLocation, locationOffset;
@@ -66,4 +67,13 @@ public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
         return customView;
 
     }
+
+    public static String doubleFormatter(double x)
+    {
+        DecimalFormat df = new DecimalFormat("0.0");
+        String formattedNumber = df.format(x);
+        return formattedNumber;
+
+    }
+
 }
