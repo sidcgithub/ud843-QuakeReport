@@ -1,6 +1,7 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.graphics.drawable.GradientDrawable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+import android.support.v4.content.*;
 public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
 
 
@@ -64,6 +66,16 @@ public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
         dateView.setText(singleQuakeInfo.getDate());
         timeView.setText(singleQuakeInfo.getTime());
 
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) magView.getBackground();
+
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getContext().getColor(getMagnitudeColor(singleQuakeInfo.getMagnitude()));
+
+        // Set the color on the magnitude circle
+        magnitudeCircle.setColor(magnitudeColor);
+
         return customView;
 
     }
@@ -73,6 +85,43 @@ public class CustomQuakeAdapter extends ArrayAdapter<CustomQuakeInfo> {
         DecimalFormat df = new DecimalFormat("0.0");
         String formattedNumber = df.format(x);
         return formattedNumber;
+
+    }
+
+    public static int getMagnitudeColor(double magnitude)
+    {
+        int magInt = (int)Math.floor(magnitude);
+        int color;
+
+        switch(magInt)
+        {
+            case 0: ;
+            case 1:color =  R.color.magnitude1;
+            break;
+            case 2:color =  R.color.magnitude2;
+            break;
+            case 3:color =  R.color.magnitude3;
+            break;
+            case 4:color =  R.color.magnitude4;
+            break;
+            case 5:color =  R.color.magnitude5;
+            break;
+            case 6:color =  R.color.magnitude6;
+            break;
+            case 7:color =  R.color.magnitude7;
+            break;
+            case 8:color =  R.color.magnitude8;
+            break;
+            case 9:color =  R.color.magnitude9;
+            break;
+            case 10:color =  R.color.magnitude10plus;
+            break;
+            default:color =  R.color.magnitude10plus;
+
+
+
+        }
+        return color;
 
     }
 

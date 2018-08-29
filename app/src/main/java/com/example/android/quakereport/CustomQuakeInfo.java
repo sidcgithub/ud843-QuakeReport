@@ -3,14 +3,15 @@ package com.example.android.quakereport;
 public class CustomQuakeInfo {
 
     double magnitude;
-    String location, date, time;
+    String location, date, time,url;
 
-    public CustomQuakeInfo(double magnitude, String location, String date, String time)
+    public CustomQuakeInfo(double magnitude, String location, String date, String time, String url)
     {
         this.magnitude = magnitude;
         this.location = location;
         this.date = date;
         this.time = time;
+        this.url = url;
     }
 
     public double getMagnitude()
@@ -31,5 +32,9 @@ public class CustomQuakeInfo {
     public String getTime()
     {
         return time;
+    }
+    public String getUrl()
+    {
+        return url;
     }
 }
